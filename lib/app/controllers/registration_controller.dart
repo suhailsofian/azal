@@ -20,6 +20,11 @@ class RegistrationController extends GetxController {
   final birth_day = TextEditingController().obs;
   final issuance_date = TextEditingController().obs;
   var isCompleted = false.obs;
+  RxBool checkidentityType = false.obs;
+  RxBool checkClientGender = false.obs;
+  RxBool checkMaritalStatus = false.obs;
+  RxBool checkCleintEducation = false.obs;
+  RxBool checkhow_to_know = false.obs;
   TextEditingController editUsername = TextEditingController();
   TextEditingController editMobile = TextEditingController();
   var editbirthDay = TextEditingController().obs;
@@ -119,6 +124,26 @@ class RegistrationController extends GetxController {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  removeCacheData(lang) {
+    print("cache data deleting... " + lang);
+    // if (lang == null) {
+    //   lang = Get.find<LanguageController>().savedLang.value;
+    // }
+    boxs.value.remove("complaintsTypeList" + lang);
+    boxs.value.remove("mainClassList" + lang);
+    boxs.value.remove("activityClassList" + lang);
+    boxs.value.remove("granteetypeList" + lang);
+    boxs.value.remove("periodTypeList" + lang);
+    boxs.value.remove("productsList" + lang);
+    boxs.value.remove("educationlevelList" + lang);
+    boxs.value.remove("identifytheprogramList" + lang);
+    boxs.value.remove("directoratesList" + lang);
+    boxs.value.remove("statusCleintList" + lang);
+    boxs.value.remove("genderList" + lang);
+    boxs.value.remove("identityTypesList" + lang);
+    print("cache deleted all " + lang);
   }
 
   loadComplaintsTypeFromApi(lang) async {
@@ -233,7 +258,6 @@ class RegistrationController extends GetxController {
       final json = jsonDecode(response.body);
       print("loadMainClassificationFromApi");
       if (json['status'] == true) {
-       
         print(json);
         mainClassList.value = json['data'];
         boxs.value.write("mainClassList" + lang, json['data']);
@@ -813,10 +837,13 @@ class RegistrationController extends GetxController {
       editMobile.text = json['data']['user'][0]['phone'];
       editbirthDay.value.text = json['data']['user'][0]['cleintbirthday'];
       selectedIdentityTypeValue.value = json['data']['user'][0]['identifytype'];
+
       identityId.text = json['data']['user'][0]['identifynum'];
       issuanceDate.value.text = json['data']['user'][0]['identifydate'];
       clientGender.value = json['data']['user'][0]['cleintgender'];
+
       maritalStatus.value = json['data']['user'][0]['cleintstatus'];
+
       sourceIncome.text = json['data']['user'][0]['sourceofincome'];
       ClientAddress.text = json['data']['user'][0]['clientaddress'];
       clientGovernorate.value = json['data']['user'][0]['clientgovernorate'];

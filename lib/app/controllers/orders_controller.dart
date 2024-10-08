@@ -12,6 +12,13 @@ import 'package:neecoder/app/utils/httpConfig/HttpsConnect.dart' as httpp;
 class OrdersController extends GetxController {
   RxBool loadingOne = false.obs;
   RxBool loading = false.obs;
+  RxBool checkProd = false.obs;
+  RxBool checkperiodType = false.obs;
+  RxBool checkproductsperiod = false.obs;
+  RxBool checkGarenteeType = false.obs;
+  RxBool checkOtherGarenteeType = false.obs;
+  RxBool checkActivityClass = false.obs;
+  RxBool checkActivitys = false.obs;
   List allFunding = [].obs;
   Map funding = {}.obs;
   RxList userOrdersItems = [].obs;
@@ -371,6 +378,8 @@ class OrdersController extends GetxController {
     // print(json['data']);
 
     if (json['status'] == true) {
+      final RegistrationController registrationController =
+          Get.find<RegistrationController>();
       // print(json['data']['loanpurpose']);
       LoanPurpose.text = json['data']['loanpurpose'] != null
           ? json['data']['loanpurpose']
@@ -387,18 +396,38 @@ class OrdersController extends GetxController {
           (json['data']['period_type'] as List).isEmpty
               ? ''
               : json['data']['period_type'][0]['code_id'];
+      for (var element in registrationController.periodTypeList) {
+        if (element['code_id'] == selectedPeriodTypeValue.value) {
+          checkperiodType(true);
+        }
+      }
       selectedGarenteeTypeValue.value =
           (json['data']['grantee_type'] as List).isEmpty
               ? ''
               : json['data']['grantee_type'][0]['code_id'];
+      for (var element in registrationController.granteetypeList) {
+        if (element['code_id'] == selectedGarenteeTypeValue.value) {
+          checkGarenteeType(true);
+        }
+      }
       selectedOtherGarenteeValue.value =
           (json['data']['OTHER_GARNTEE_TYPE'] as List).isEmpty
               ? ''
               : json['data']['OTHER_GARNTEE_TYPE'][0]['code_id'];
+      for (var element in registrationController.granteetypeList) {
+        if (element['code_id'] == selectedOtherGarenteeValue.value) {
+          checkOtherGarenteeType(true);
+        }
+      }
       selectedClassActivityValue.value =
           (json['data']['activity_class'] as List).isEmpty
               ? ''
               : json['data']['activity_class'][0]['code_id'];
+      for (var element in registrationController.activityClassList) {
+        if (element['code_id'] == selectedClassActivityValue.value) {
+          checkActivityClass(true);
+        }
+      }
       clientArea.value = (json['data']['activity_area'] as List).isEmpty
           ? ''
           : json['data']['activity_area'][0]['code_id'];
@@ -416,14 +445,30 @@ class OrdersController extends GetxController {
       clientProduct.value = (json['data']['product_id'] as List).isEmpty
           ? ''
           : json['data']['product_id'][0]['code_id'];
+
+      for (var element in registrationController.productsList) {
+        if (element['code_id'] == clientProduct.value) {
+          checkProd(true);
+        }
+      }
       selectedProductsPeriodValue.value =
           (json['data']['request_period'] as List).isEmpty
               ? ''
               : json['data']['request_period'][0]['code_id'];
+      // for (var element in registrationController.productsperiodList) {
+      //   if (element['code_id'] == selectedProductsPeriodValue.value) {
+      //     checkproductsperiod(true);
+      //   }
+      // }
       selectedActivityValue.value =
           (json['data']['activity_id'] as List).isEmpty
               ? ''
               : json['data']['activity_id'][0]['CODE_ID'];
+      // for (var element in registrationController.activityList) {
+      //   if (element['code_id'] == selectedActivityValue.value) {
+      //     checkActivitys(true);
+      //   }
+      // }
     }
   }
 

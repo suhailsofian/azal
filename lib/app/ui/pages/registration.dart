@@ -56,6 +56,35 @@ class _RegistrationPageState extends State<RegistrationPage> {
     landingPageController.loadClientDirectorateFromApi(
         null, clientGovernorate.value);
     landingPageController.loadClientAreaFromApi(null, clientDirectorate.value);
+    for (var element in Get.find<RegistrationController>().identityTypesList) {
+      if (element['code_id'].toString() == selectedIdentityTypeValue.value) {
+        Get.find<RegistrationController>().checkidentityType(true);
+      }
+    }
+
+    for (var element in Get.find<RegistrationController>().genderList) {
+      if (element['code_id'] == clientGender.value) {
+        Get.find<RegistrationController>().checkClientGender(true);
+      }
+    }
+    for (var element in Get.find<RegistrationController>().statusCleintList) {
+      if (element['code_id'] == maritalStatus.value) {
+        Get.find<RegistrationController>().checkMaritalStatus(true);
+      }
+    }
+
+    for (var element in Get.find<RegistrationController>().educationlevelList) {
+      if (element['code_id'] == cleintEducation.value) {
+        Get.find<RegistrationController>().checkCleintEducation(true);
+      }
+    }
+
+    for (var element
+        in Get.find<RegistrationController>().identifytheprogramList) {
+      if (element['code_id'] == how_to_know.value) {
+        Get.find<RegistrationController>().checkhow_to_know(true);
+      }
+    }
     return Scaffold(
       appBar: _buildAppBar(),
       body: SingleChildScrollView(
@@ -328,12 +357,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               }
                                               return null;
                                             },
-                                            value: selectedIdentityTypeValue
-                                                        .value ==
-                                                    ''
-                                                ? null
-                                                : selectedIdentityTypeValue
-                                                    .value,
+                                            value: Get.find<RegistrationController>()
+                                                        .checkidentityType ==
+                                                    true
+                                                ? (selectedIdentityTypeValue
+                                                            .value ==
+                                                        ''
+                                                    ? null
+                                                    : selectedIdentityTypeValue
+                                                        .value)
+                                                : null,
                                             onChanged: null,
                                             onSaved: null,
                                             buttonStyleData:
@@ -567,9 +600,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               }
                                               return null;
                                             },
-                                            value: clientGender.value == ''
-                                                ? null
-                                                : clientGender.value,
+                                            value:
+                                                Get.find<RegistrationController>()
+                                                            .checkClientGender ==
+                                                        true
+                                                    ? (clientGender.value == ''
+                                                        ? null
+                                                        : clientGender.value)
+                                                    : null,
                                             onChanged: (value) {
                                               clientGender.value =
                                                   value.toString();
@@ -668,9 +706,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               }
                                               return null;
                                             },
-                                            value: maritalStatus.value == ''
-                                                ? null
-                                                : maritalStatus.value,
+                                            value:
+                                                Get.find<RegistrationController>()
+                                                            .checkMaritalStatus ==
+                                                        true
+                                                    ? (maritalStatus.value == ''
+                                                        ? null
+                                                        : maritalStatus.value)
+                                                    : null,
                                             onChanged: (value) {
                                               maritalStatus.value =
                                                   value.toString();
@@ -1409,9 +1452,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               }
                                               return null;
                                             },
-                                            value: cleintEducation.value == ''
-                                                ? null
-                                                : cleintEducation.value,
+                                            value: Get.find<RegistrationController>()
+                                                        .checkCleintEducation ==
+                                                    true
+                                                ? (cleintEducation.value == ''
+                                                    ? null
+                                                    : cleintEducation.value)
+                                                : null,
                                             onChanged: (value) {
                                               cleintEducation.value =
                                                   value.toString();
@@ -1512,9 +1559,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               }
                                               return null;
                                             },
-                                            value: how_to_know.value == ''
-                                                ? null
-                                                : how_to_know.value,
+                                            value:
+                                                Get.find<RegistrationController>()
+                                                            .checkhow_to_know ==
+                                                        true
+                                                    ? (how_to_know.value == ''
+                                                        ? null
+                                                        : how_to_know.value)
+                                                    : null,
                                             onChanged: (value) {
                                               how_to_know.value =
                                                   value.toString();
@@ -1598,7 +1650,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       child: Text(
                                         "save_modification".tr,
                                         style: TextStyle(
-                                        
                                           fontWeight: FontWeight.bold,
                                           // fontSize: 13,
                                         ),

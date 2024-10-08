@@ -29,6 +29,7 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
 
   final RegistrationController registrationController =
       Get.find<RegistrationController>();
+
   var selectedPeriodTypeValue =
       Get.find<OrdersController>().selectedPeriodTypeValue;
   var selectedGarenteeTypeValue =
@@ -62,6 +63,16 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
     registrationController.loadProductsPeriodFromApi(
         null, selectedProductValue.value);
 
+    for (var element in registrationController.activityList) {
+      if (element['CODE_ID'] == selectedActivityValue.value) {
+        Get.find<OrdersController>().checkActivitys(true);
+      }
+    }
+    for (var element in registrationController.productsperiodList) {
+      if (element['code_id'] == selectedProductsPeriodValue.value) {
+        Get.find<OrdersController>().checkproductsperiod(true);
+      }
+    }
     return Scaffold(
       appBar: _buildAppBar(),
       body: SingleChildScrollView(
@@ -281,10 +292,14 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
                                             }
                                             return null;
                                           },
-                                          value:
-                                              selectedProductValue.value == ''
+                                          value: Get.find<OrdersController>()
+                                                      .checkProd ==
+                                                  true
+                                              ? (selectedProductValue.value ==
+                                                      ''
                                                   ? null
-                                                  : selectedProductValue.value,
+                                                  : selectedProductValue.value)
+                                              : null,
                                           onChanged: (value) {
                                             selectedProductValue.value =
                                                 value.toString();
@@ -390,11 +405,16 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
                                             }
                                             return null;
                                           },
-                                          value: selectedPeriodTypeValue
-                                                      .value ==
-                                                  ''
-                                              ? null
-                                              : selectedPeriodTypeValue.value,
+                                          value: Get.find<OrdersController>()
+                                                      .checkperiodType ==
+                                                  true
+                                              ? (selectedPeriodTypeValue
+                                                          .value ==
+                                                      ''
+                                                  ? null
+                                                  : selectedPeriodTypeValue
+                                                      .value)
+                                              : null,
                                           onChanged: (value) {
                                             selectedPeriodTypeValue.value =
                                                 value.toString();
@@ -493,12 +513,16 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
                                             }
                                             return null;
                                           },
-                                          value: selectedProductsPeriodValue
-                                                      .value ==
-                                                  ''
-                                              ? null
-                                              : selectedProductsPeriodValue
-                                                  .value,
+                                          value: Get.find<OrdersController>()
+                                                      .checkproductsperiod ==
+                                                  true
+                                              ? (selectedProductsPeriodValue
+                                                          .value ==
+                                                      ''
+                                                  ? null
+                                                  : selectedProductsPeriodValue
+                                                      .value)
+                                              : null,
                                           onChanged: (value) {
                                             selectedProductsPeriodValue.value =
                                                 value.toString();
@@ -597,11 +621,16 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
                                             }
                                             return null;
                                           },
-                                          value: selectedGarenteeTypeValue
-                                                      .value ==
-                                                  ''
-                                              ? null
-                                              : selectedGarenteeTypeValue.value,
+                                          value: Get.find<OrdersController>()
+                                                      .checkGarenteeType ==
+                                                  true
+                                              ? (selectedGarenteeTypeValue
+                                                          .value ==
+                                                      ''
+                                                  ? null
+                                                  : selectedGarenteeTypeValue
+                                                      .value)
+                                              : null,
                                           onChanged: (value) {
                                             selectedGarenteeTypeValue.value =
                                                 value.toString();
@@ -699,12 +728,16 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
                                             }
                                             return null;
                                           },
-                                          value: selectedOtherGarenteeValue
-                                                      .value ==
-                                                  ''
-                                              ? null
-                                              : selectedOtherGarenteeValue
-                                                  .value,
+                                          value: Get.find<OrdersController>()
+                                                      .checkOtherGarenteeType ==
+                                                  true
+                                              ? (selectedOtherGarenteeValue
+                                                          .value ==
+                                                      ''
+                                                  ? null
+                                                  : selectedOtherGarenteeValue
+                                                      .value)
+                                              : null,
                                           onChanged: (value) {
                                             selectedOtherGarenteeValue.value =
                                                 value.toString();
@@ -831,12 +864,16 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
                                             }
                                             return null;
                                           },
-                                          value: selectedClassActivityValue
-                                                      .value ==
-                                                  ''
-                                              ? null
-                                              : selectedClassActivityValue
-                                                  .value,
+                                          value: Get.find<OrdersController>()
+                                                      .checkActivityClass ==
+                                                  true
+                                              ? (selectedClassActivityValue
+                                                          .value ==
+                                                      ''
+                                                  ? null
+                                                  : selectedClassActivityValue
+                                                      .value)
+                                              : null,
                                           onChanged: (value) {
                                             selectedClassActivityValue.value =
                                                 value.toString();
@@ -949,10 +986,14 @@ class _EditFundRequestPageState extends State<EditFundRequestPage> {
                                             }
                                             return null;
                                           },
-                                          value:
-                                              selectedActivityValue.value == ''
+                                          value: Get.find<OrdersController>()
+                                                      .checkActivitys ==
+                                                  true
+                                              ? (selectedActivityValue.value ==
+                                                      ''
                                                   ? null
-                                                  : selectedActivityValue.value,
+                                                  : selectedActivityValue.value)
+                                              : null,
                                           onChanged: (value) {
                                             selectedActivityValue.value =
                                                 value.toString();

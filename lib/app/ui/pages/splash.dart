@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:neecoder/app/controllers/registration_controller.dart';
 import '../../controllers/home_controller.dart';
 import '../../routes/app_routes.dart';
 
@@ -22,7 +23,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<HomeController>().removeCacheData();
+    Get.find<RegistrationController>().removeCacheData('AR');
+    Get.find<RegistrationController>().removeCacheData('EN');
     HomeController controller = HomeController();
+
     return new WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

@@ -32,6 +32,19 @@ class HomeController extends GetxController {
     loadPolicyFromApi();
   }
 
+  removeCacheData() {
+    print("cache Home deleting... ");
+    boxs.value.remove("website");
+    boxs.value.remove("hotline");
+    boxs.value.remove("whatsapp");
+    boxs.value.remove("logoSite");
+    boxs.value.remove("facebook");
+    boxs.value.remove("logoSplash");
+    print("clean whatsapp");
+    print(boxs.value.read("whatsapp"));
+    print("cache deleted all Home data ");
+  }
+
   loadWEBSITEFromApi() async {
     // loading(true);
     var headers2 = {
